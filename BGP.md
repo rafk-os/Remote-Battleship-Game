@@ -11,6 +11,10 @@ After connecting to the server, server will send information with name and versi
 
 ``` HELLO You have been connected to a server using BGP version 1.0 ```
 
+# Planning phase
+
+In this phase all commands scope to prepare game.
+
 ## List of avaiable commands and server informations
 
 
