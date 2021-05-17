@@ -59,4 +59,11 @@ Example response (fail):
 
 ``` BAD_ROOM ```
 
+If client seccessfuly joined to the room server ``` JOINTED_SUCCESSFUL ``` message will send information about lobby status. There are two possible messages: ``` WAITING_FOR_SECOND_PLAYER ``` and ``` GAME_IS_STARTING ```. In case the client sees the first message, he will still see the second one after second player will join the room. \
 
+Example:
+
+```
+WAITING_FOR_SECOND_PLAYER
+GAME_IS_STARTING
+```
