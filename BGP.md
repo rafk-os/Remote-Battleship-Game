@@ -10,5 +10,10 @@ Protocol works similar to SMTP/ESMTP protocol - defines the commands to be used 
 
 ## List of commands and informations
 
-``` HELLO You have been connected to a server using BGP version 1.0 ```
-After connecting to the server, server will send information with name and version protocol
+
+### Hello message
+
+After connecting to the server, server will send information with name and version protocol. Example: \
+
+``` HELLO You have been connected to a server using BGP version 1.0 ``` 
+
