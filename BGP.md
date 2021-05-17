@@ -35,3 +35,23 @@ Example response (fail):
 
 ```MP_FREE_ROOM```
 
+### SIT <room_number>
+
+When client want to join the room he has to send command ```SIT <room_number>``` where room_number is a number that determinetes room identifier. Server in response might send 4 possible messages: \
+``` BAD_SYNTAX ``` - client used bad syntax \
+``` BAD_ROOM ``` - client wanted to join to the room that does not exist \
+``` NO_AVAIABLE_SLOTS ``` - client wanted to join to the room that does not have free slots \
+``` JOINTED_SUCCESSFUL ``` - client have join to the room \
+
+Example request:
+
+```SIT 6```
+
+Example response (success):
+
+``` JOINED_SUCCESSFUL ```
+
+Example response (fail):
+``` BAD_ROOM ```
+
+
