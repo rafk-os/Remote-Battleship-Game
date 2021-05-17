@@ -16,7 +16,7 @@ After connecting to the server, server will send information with name and versi
 
 ### LIST
 
-The purpose of this command is to send a request to the server for information on free game rooms. if there are no available rooms server will send ``` NO_FREE_ROOM ``` \
+The purpose of this command is to send a request to the server for information on free game rooms. if there are no available rooms server will send ``` NO_FREE_ROOM ``` information
 
 Example request:
 
