@@ -52,6 +52,7 @@ Example response (success):
 ``` JOINED_SUCCESSFUL ```
 
 Example response (fail):
+
 ``` BAD_ROOM ```
 
 
