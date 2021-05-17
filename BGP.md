@@ -16,16 +16,21 @@ After connecting to the server, server will send information with name and versi
 
 ### LIST
 
-The purpose of this command is to send a request to the server for information on free game rooms. if there are no available rooms server will send ``` NO_FREE_ROOM ``` information
+The purpose of this command is to send a request to the server for information on free game rooms. If the server finds an empty space, it will send it in single lines with a dot (```.```) at the end. If there are no available rooms server will send ``` NO_FREE_ROOM ``` information.
 
-Example request:
+Request:
 
 ``` LIST ``` \
 
-Example response:
+Example response (success):
 
 ```
 Avaiable rooms:
-
-
+1
+3
+8
+.
+```
+Example response (fail):
+```MP_FREE_ROOM```
 
