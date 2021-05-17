@@ -20,7 +20,7 @@ The purpose of this command is to send a request to the server for information o
 
 Request:
 
-``` LIST ``` \
+``` LIST ``` 
 
 Example response (success):
 
