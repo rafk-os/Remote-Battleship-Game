@@ -32,5 +32,6 @@ Avaiable rooms:
 .
 ```
 Example response (fail):
+
 ```MP_FREE_ROOM```
 
