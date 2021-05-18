@@ -73,4 +73,18 @@ GAME_IS_STARTING
 
 # Game phase
 
-At the bagin of the game phase server draws who will start. The player who starts the game will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```
+### YOUR_TURN / YOUR_OPPONENT_TURN communicates
+
+At the bagin of the game server draws who will start. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
+
+### SHOT XY
+
+After receive ``` YOUR TURN ``` communicate player have to send ``` SHOT XY ``` messege where X is a letter from range A-J and Y is a number from range 0-9. Pair of parameters are coordinates that symbolize position on map. After using this command player can get messeges like: /
+
+``` HIT ``` - ship was hit
+
+``` MISS ``` - player didn't hit anything
+
+``` HIT_AND_SINK ``` - player hit and destroyed ship
+
+``` BAD_SYNTAX ``` - player used unrecognize command
