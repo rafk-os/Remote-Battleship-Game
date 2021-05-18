@@ -17,7 +17,7 @@ In this phase all commands scope to prepare game.
 
 ## List of avaiable commands and server informations
 
-If server will not recognize command, will send ``` BAD_SYNTAX ''' response
+If server will not recognize command, will send ``` BAD_SYNTAX ``` response
 
 ### LIST
 
