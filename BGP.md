@@ -95,9 +95,13 @@ oooooooooo
 oooooooooo
 ```
 
+Example server response:
+
+``` MAP_SEND_SUCCESSFULY ```
+
 ### YOUR_TURN / YOUR_OPPONENT_TURN communicates
 
-At the bagin of the game server draws who will start. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
+When both players did send maps server begins the game and draws who will start. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
 
 ### SHOT XY
 
