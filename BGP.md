@@ -38,7 +38,7 @@ Avaiable rooms:
 ```
 Example response (fail):
 
-```MP_FREE_ROOM```
+```NO_FREE_ROOM```
 
 ### SIT <room_number>
 
@@ -72,3 +72,5 @@ GAME_IS_STARTING
 ```
 
 # Game phase
+
+At the bagin of the game phase server draws who will start. The player who starts the game will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```
