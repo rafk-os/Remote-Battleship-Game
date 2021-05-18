@@ -126,5 +126,3 @@ Player that doesn't want to play can use ``` QUIT ``` command to end the game. H
 When player see ``` VICTORY ``` after using command ``` SHOT ``` or ``` LOSE ``` communicate insteed of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to end the game.
 
 ### QUIT
-
-After seeing VIC
