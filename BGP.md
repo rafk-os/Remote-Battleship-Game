@@ -73,6 +73,28 @@ GAME_IS_STARTING
 
 # Game phase
 
+### SETTINGS
+
+If the player has found a free lobby and has received a ``` GAME_IS_STARTING ``` response, he has to send 10x10 map that contains ships ( ```x``` symbol) and free space ( ```o``` syombol) in 10 messeges when each message contains 10 chars ( ``` x ``` and ``` o ``` ). Map must include 1 five-field ship, 1 four-field ship, 2 three-field ships and 2 twopfield ships.  After sending 10th message server will send:
+
+``` MAP_SEND_SUCCESSFULY ``` - when client didn't made any mistake
+``` BAD_REQUEST ``` - when client did any mistake like didn't arrange all ships, used bad syntax or arrange too many ships
+
+Example client message:
+
+```
+xxxxoooooo
+oooooxxoxx
+oooooooooo
+xoxoxxxxxo
+xoxooooooo
+xoxooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+oooooooooo
+```
+
 ### YOUR_TURN / YOUR_OPPONENT_TURN communicates
 
 At the bagin of the game server draws who will start. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
