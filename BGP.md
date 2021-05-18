@@ -105,7 +105,7 @@ When both players did send maps server begins the game and draws who will start.
 
 ### SHOT XY
 
-After receive ``` YOUR TURN ``` communicate player have to send ``` SHOT XY ``` messege where X is a letter from range A-J and Y is a number from range 0-9. Pair of parameters are coordinates that symbolize position on map. After using this command player can get messeges like: /
+After receive ``` YOUR TURN ``` communicate player that want to play has to send ``` SHOT XY ``` messege where X is a letter from range A-J that mean position on x axis and Y is a number from range 0-9 that means position on y axis. Pair of parameters are coordinates that symbolize position on map. After using this command player can get messeges like: /
 
 ``` HIT ``` - ship was hit
 
@@ -113,4 +113,18 @@ After receive ``` YOUR TURN ``` communicate player have to send ``` SHOT XY ``` 
 
 ``` HIT_AND_SINK ``` - player hit and destroyed ship
 
+``` VICTORY ``` - player have destroy last ship and won the game
+
 ``` BAD_SYNTAX ``` - player used unrecognize command
+
+### QUIT command
+
+Player that doesn't want to play can use ``` QUIT ``` command to end the game. He might use it also when he won or lose the game.
+
+### End of game
+
+When player see ``` VICTORY ``` after using command ``` SHOT ``` or ``` LOSE ``` communicate insteed of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to end the game.
+
+### QUIT
+
+After seeing VIC
