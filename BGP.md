@@ -117,12 +117,10 @@ After receive ``` YOUR TURN ``` communicate player that want to play has to send
 
 ``` BAD_SYNTAX ``` - player used unrecognize command
 
-### QUIT command
+### QUIT
 
 Player that doesn't want to play can use ``` QUIT ``` command to end the game. He might use it also when he won or lose the game.
 
 ### End of game
 
 When player see ``` VICTORY ``` after using command ``` SHOT ``` or ``` LOSE ``` communicate insteed of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to end the game.
-
-### QUIT
