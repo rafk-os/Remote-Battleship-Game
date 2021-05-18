@@ -2,32 +2,32 @@
 
 ## Introduction
 
-The protocol is based on tcp. BGP was developed to support professional real-time battleships game.
+The protocol is based on tcp. BGP was developed to support professional real-time battleships game in console.
 
 ## Documentation
 
-Protocol works similar to SMTP/ESMTP protocol - defines the commands to be used on the client and server side. Protocol is adapted to work in Client-Server architectire. \
+Protocol works similar to SMTP/ESMTP protocol - defines the commands to be used on the client and server side. Protocol is adapted to work in Client-Server architecture. \
 After connecting to the server, server will send information with name and version protocol. Example: 
 
 ``` HELLO You have been connected to a server using BGP version 1.0 ```
 
 # Planning phase
 
-In this phase all commands scope to prepare game.
+In this phase all commands are used to prepare game.
 
 ## List of avaiable commands and server informations
 
-If server will not recognize command, will send ``` BAD_SYNTAX ``` message in response
+If client will use not recognizable by server command, the response message will be send as follows: ``` BAD_SYNTAX ``` 
 
 ### LIST
 
-The purpose of this command is to send a request to the server for information on free game rooms. If the server finds an empty space, it will send it in single lines with a dot (```.```) at the end. If there are no available rooms server will send ``` NO_FREE_ROOM ``` information.
+The purpose of this command is to send a request to the server for information about currently available game rooms. If the server finds an empty space, it will send it in single lines with a dot (```.```) at the end. If there are no available room, server will send ``` NO_FREE_ROOM ``` information.
 
 Request:
 
 ``` LIST ``` 
 
-Example response (success):
+Response example (success):
 
 ```
 Avaiable rooms:
@@ -36,17 +36,17 @@ Avaiable rooms:
 8
 .
 ```
-Example response (fail):
+Response example (fail):
 
 ```NO_FREE_ROOM```
 
 ### SIT <room_number>
 
-When client want to join the room he has to send command ```SIT <room_number>``` where room_number is a number that determinetes room identifier. Server in response might send 4 possible messages: \
+When client wants to join the room, he has to send command ```SIT <room_number>``` where room_number is a number that determines room id. Server in response might send 4 possible messages: \
 ``` BAD_SYNTAX ``` - client used bad syntax \
-``` BAD_ROOM ``` - client wanted to join to the room that does not exist \
-``` NO_AVAIABLE_SLOTS ``` - client wanted to join to the room that does not have free slots \
-``` JOINTED_SUCCESSFUL ``` - client have join to the room \
+``` WRONG_ROOM ``` - client wanted to join to the room that does not exist \
+``` NO_AVAIABLE_SLOTS ``` - client wanted to join to the room that does not have free player slot \
+``` JOINING_SUCCESSFUL ``` - client have joined to the room \
 
 Example request:
 
@@ -54,19 +54,19 @@ Example request:
 
 Example response (success):
 
-``` JOINED_SUCCESSFUL ```
+``` JOINING_SUCCESSFUL ```
 
 Example response (fail):
 
-``` BAD_ROOM ```
+``` WRONG_ROOM ```
 
-If client seccessfuly joined to the room server ``` JOINTED_SUCCESSFUL ``` message will send information about lobby status. There are two possible messages: ``` WAITING_FOR_SECOND_PLAYER ``` and ``` GAME_IS_STARTING ```. In case the client sees the first message, he will still see the second one after second player will join the room. \
+If client has successfully joined  room server and recived message: ``` JOINING_SUCCESSFUL ``` server will send information about lobby status. There are two possible messages: ``` WAITING_FOR_SECOND_PLAYER ``` and ``` GAME_IS_STARTING ```. In case if client sees the first message, he will see the second one after second player has joined the room. \
 
 Example flow:
 
 ```
 SIT 6
-JOINTED_SECCESSFUL
+JOINING_SUCCESSFUL
 WAITING_FOR_SECOND_PLAYER
 GAME_IS_STARTING
 ```
@@ -75,7 +75,7 @@ GAME_IS_STARTING
 
 ### SETTINGS
 
-If the player has found a free lobby and has received a ``` GAME_IS_STARTING ``` response, he has to send 10x10 map that contains ships ( ```x``` symbol) and free space ( ```o``` syombol) in 10 messeges when each message contains 10 chars ( ``` x ``` and ``` o ``` ). Map must include 1 five-field ship, 1 four-field ship, 2 three-field ships and 2 twopfield ships.  After sending 10th message server will send:
+If the player has found a free lobby and received a ``` GAME_IS_STARTING ``` response, he has to send 10x10 map that contains ships ( ```x``` symbol) and free space ( ```o``` symbol) as 10 messeges while each message contains 10 chars ( ``` x ``` and ``` o ``` ). Send map must include 1 five-field ship, 1 four-field ship, 2 three-field ships and 2 twofield ships.  After sending 10th message server will send response as follows:
 
 ``` MAP_SEND_SUCCESSFULY ``` - when client didn't made any mistake
 ``` BAD_REQUEST ``` - when client did any mistake like didn't arrange all ships, used bad syntax or arrange too many ships
@@ -97,15 +97,15 @@ oooooooooo
 
 Example server response:
 
-``` MAP_SEND_SUCCESSFULY ```
+``` MAP_SEND_SUCCESSFULLY ```
 
-### YOUR_TURN / YOUR_OPPONENT_TURN communicates
+### YOUR_TURN / YOUR_OPPONENT_TURN messages
 
-When both players did send maps server begins the game and draws who will start. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
+When both players did send maps server will begin the game and draw who is starting. The player who starts round will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```.
 
 ### SHOT XY
 
-After receive ``` YOUR TURN ``` communicate player that want to play has to send ``` SHOT XY ``` messege where X is a letter from range A-J that mean position on x axis and Y is a number from range 0-9 that means position on y axis. Pair of parameters are coordinates that symbolize position on map. After using this command player can get messeges like: /
+After receiving ``` YOUR TURN ``` message player which wants to play has to send ``` SHOT XY ``` message where X is a letter from range A-J and means position on x axis and Y is a number from range 0-9 that means position on y axis. Pair of thoose numbers are coordinates which means position on map. After using this command player can get response messeges as follows: /
 
 ``` HIT ``` - ship was hit
 
@@ -113,14 +113,14 @@ After receive ``` YOUR TURN ``` communicate player that want to play has to send
 
 ``` HIT_AND_SINK ``` - player hit and destroyed ship
 
-``` VICTORY ``` - player have destroy last ship and won the game
+``` VICTORY ``` - player destroyed last ship and won the game
 
-``` BAD_SYNTAX ``` - player used unrecognize command
+``` BAD_SYNTAX ``` - player used unknown command
 
 ### QUIT
 
-Player that doesn't want to play can use ``` QUIT ``` command to end the game. He might use it also when he won or lose the game.
+Player that doesn't want to play could write ``` QUIT ``` command to end the game. He might use it also when he already won or lost the game.
 
 ### End of game
 
-When player see ``` VICTORY ``` after using command ``` SHOT ``` or ``` LOSE ``` communicate insteed of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to end the game.
+When player will see ``` VICTORY ``` message after using command ``` SHOT ``` or ``` LOSE ``` message, instead of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to leave game.
