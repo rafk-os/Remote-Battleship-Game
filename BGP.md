@@ -60,7 +60,7 @@ Example response (fail):
 
 ``` WRONG_ROOM ```
 
-If client has successfully joined  room server and recived message: ``` JOINING_SUCCESSFUL ``` server will send information about lobby status. There are two possible messages: ``` WAITING_FOR_SECOND_PLAYER ``` and ``` GAME_IS_STARTING ```. In case if client sees the first message, he will see the second one after second player has joined the room. \
+If client has successfully joined  room server and recived message: ``` JOINING_SUCCESSFUL ``` server will send information about lobby status. There are two possible messages: ``` WAITING_FOR_SECOND_PLAYER ``` and ``` GAME_IS_STARTING ```. In case if client sees the first message, he will see the second one after second player has joined the room. 
 
 Example flow:
 
