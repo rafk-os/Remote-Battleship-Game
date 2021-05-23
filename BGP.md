@@ -101,7 +101,7 @@ Example server response:
 
 ### YOUR_TURN / YOUR_OPPONENT_TURN messages
 
-When both players did send maps server will begin the game and draw who is starting. The player who starts the game will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```. In next rounds players who will do their moves, before ``` YOUR_TURN ``` messages they will receive informations about last result of opponent move. In case that game has been ended player will not receive ``` YOUR_TURN ``` message. Possible informations: \
+When both players did send maps server will begin the game and draw who is starting. The player who starts the game will receive a message ```YOUR_TURN``` and the second player will get a message ``` YOUR_OPPONENT_TURN```. In next rounds players who will do their moves, before ``` YOUR_TURN ``` messages they will receive informations about last result of opponent move. In case that game has been ended player will not receive ``` YOUR_TURN ``` message. Possible informations:
 
 ``` HIT XY ``` - ship was hit at XY coordinates (more in SHOT XY command documentation)
 
