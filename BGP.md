@@ -123,7 +123,9 @@ MISS C2
 YOUR_TURN
 ```
 
-``` VICTORY F6 ```
+```
+VICTORY F6
+```
 
 ### SHOT XY
 
