@@ -107,7 +107,7 @@ When both players did send maps server will begin the game and draw who is start
 
 ``` MISS XY ``` - opponent missed at XY
 
-``` HIT_AND_SINK ``` - opponent hit and sink ship at XY
+``` HIT_AND_SINK XY ``` - opponent hit and sink ship at XY
 
 ``` VICTORY XY ``` - opponent hit and sink ship at XY and won the game
 
