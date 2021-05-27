@@ -1,3 +1,8 @@
+Lines marked as: \
+- COMMAND means messeges that were send to the server /
+- RECEIVED means messages that were received from the server \
+- Others mean that they were displayed by client (not include in protocol)
+
 ```
 Received: hello hello
 COMMAND: LIST
