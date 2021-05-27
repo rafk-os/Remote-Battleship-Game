@@ -28,7 +28,7 @@ public class GameCommandDto {
     }
 
     public int getX() {
-        return Character.getNumericValue(x);
+        return x-'A';
     }
 
     public int getY() {

@@ -19,11 +19,9 @@ import static java.util.Objects.nonNull;
 
 public class Board extends Parent {
     private VBox rows = new VBox();
-    private boolean enemy;
-    public int ships = 5;
+    public int ships = 6;
 
-    public Board(boolean enemy, EventHandler<? super MouseEvent> handler) {
-        this.enemy = enemy;
+    public Board(EventHandler<? super MouseEvent> handler) {
         for (int y = 0; y < 10; y++) {
             HBox row = new HBox();
             for (int x = 0; x < 10; x++) {
@@ -46,26 +44,17 @@ public class Board extends Parent {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
-                    if (!enemy) {
-                        cell.setFill(Color.LIGHTGRAY);
-                        cell.setStroke(Color.GREEN);
-                    }
+                    cell.setFill(Color.LIGHTGRAY);
                 }
-            }
-            else {
+            } else {
                 for (int i = x; i < x + length; i++) {
                     Cell cell = getCell(i, y);
                     cell.ship = ship;
-                    if (!enemy) {
-                        cell.setFill(Color.LIGHTGRAY);
-                        cell.setStroke(Color.GREEN);
-                    }
+                    cell.setFill(Color.LIGHTGRAY);
                 }
             }
-
             return true;
         }
-
         return false;
     }
 
@@ -86,11 +75,11 @@ public class Board extends Parent {
     }
 
     public Cell getCell(int x, int y) {
-        return (Cell)((HBox)rows.getChildren().get(y)).getChildren().get(x);
+        return (Cell) ((HBox) rows.getChildren().get(y)).getChildren().get(x);
     }
 
     private Cell[] getNeighbors(int x, int y) {
-        Point2D[] points = new Point2D[] {
+        Point2D[] points = new Point2D[]{
                 new Point2D(x - 1, y),
                 new Point2D(x + 1, y),
                 new Point2D(x, y - 1),
@@ -101,7 +90,7 @@ public class Board extends Parent {
 
         for (Point2D p : points) {
             if (isValidPoint(p)) {
-                neighbors.add(getCell((int)p.getX(), (int)p.getY()));
+                neighbors.add(getCell((int) p.getX(), (int) p.getY()));
             }
         }
 
@@ -129,8 +118,7 @@ public class Board extends Parent {
                         return false;
                 }
             }
-        }
-        else {
+        } else {
             for (int i = x; i < x + length; i++) {
                 if (!isValidPoint(i, y))
                     return false;
@@ -204,7 +192,6 @@ public class Board extends Parent {
                 }
                 return true;
             }
-
             return false;
         }
     }

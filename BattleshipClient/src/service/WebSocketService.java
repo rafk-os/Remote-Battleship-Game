@@ -48,13 +48,14 @@ public class WebSocketService {
     /**
      * Returns true when sited successfully
      */
-    public boolean sit(String roomName) throws Exception {
-        send(SIT.text());
+    public boolean sit(String roomName) {
+        send(SIT.text() + " " + roomName);
         return JOINING_SUCCESSFUL.text().equals(receive());
     }
 
     public void sendMap(List<String> map) {
         map.forEach(this::send);
+        receive();
     }
 
     public boolean isPlayerStarting()  {

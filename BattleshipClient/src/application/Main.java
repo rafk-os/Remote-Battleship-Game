@@ -4,28 +4,36 @@ import gameelements.Board;
 import gameelements.EnemyBoard;
 import gameelements.Ship;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import service.Commands;
+import javafx.util.Pair;
 import service.GameCommandDto;
 import service.WebSocketService;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
+import static java.util.Objects.*;
 import static service.Commands.*;
 
 public class Main extends Application {
 
-    private int port = 2900;
-    private String ipAddress = "localhost";
+    private final int port = 2900;
+    private final String ipAddress = "localhost";
     private boolean running = false;
     private boolean playerTurn = false;
     private Board playerBoard;
@@ -34,8 +42,7 @@ public class Main extends Application {
     WebSocketService service;
     private final List<Integer> ships = Arrays.asList(2, 2, 3, 3, 4, 5);
     private int shipsToPlace = 6;
-
-    private boolean enemyTurn = false;
+    private EnemyBoard.Cell cellToShot = null;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -68,42 +75,61 @@ public class Main extends Application {
                 return;
             }
 
-            playerMove(cell.x, cell.y);
-
-            enemyMove();
+            cellToShot = cell;
         });
 
-        playerBoard = new Board(false, event -> {
-            if (running)
+        playerBoard = new Board(event -> {
+            if (running || shipsToPlace == 0)
                 return;
 
             Board.Cell cell = (Board.Cell) event.getSource();
             if (playerBoard.placeShip(new Ship(ships.get(shipsToPlace - 1), event.getButton() == MouseButton.PRIMARY), cell.x, cell.y)) {
-                if (--shipsToPlace == 0) {
-                    service.sendMap(playerBoard.getMapForServer());
-                    startGame();
-                }
+                shipsToPlace--;
             }
         });
 
-        VBox vbox = new VBox(50, enemyBoard, playerBoard);
+        Button button = new Button("Start game");
+
+        button.setOnAction(actionEvent -> {
+            if (shipsToPlace==0) {
+                startGame();
+            }
+        });
+
+        button.setMinSize(50, 10);
+
+        VBox vbox = new VBox(50, enemyBoard, playerBoard, button);
         vbox.setAlignment(Pos.CENTER);
 
         root.setCenter(vbox);
 
+        Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(100);
+
+                    if (nonNull(cellToShot)) {
+                        playerMove();
+                        enemyMove();
+                        cellToShot = null;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
         return root;
     }
 
-    private void playerMove(int x, int y) {
-
+    private void playerMove() {
         playerTurn = false;
-
-        String response = service.shot(x, y);
-
-        EnemyBoard.Cell shotCell = enemyBoard.getCell(x, y);
+        String response = service.shot(cellToShot.x, cellToShot.y);
 
         if (VICTORY.text().equals(response)) {
-            shotCell.hitAndSink();
+            cellToShot.hitAndSink();
             System.out.println("VICTORY! QUITING IN 10 SEC.");
             try {
                 Thread.sleep(10000);
@@ -113,13 +139,13 @@ public class Main extends Application {
             end();
         }
         else if (HIT_AND_SINK.text().equals(response)) {
-            shotCell.hitAndSink();
+            cellToShot.hitAndSink();
         }
         else if (HIT.text().equals(response)) {
-            shotCell.hit();
+            cellToShot.hit();
         }
         else if (MISS.text().equals(response)) {
-            shotCell.miss();
+            cellToShot.miss();
         }
         else {
             System.out.println("BAD SYNTAX? XD");
@@ -128,7 +154,6 @@ public class Main extends Application {
 
     private void enemyMove() {
         GameCommandDto message = service.getTurnInfo();
-
         playerBoard.getCell(message.getX(), message.getY()).shoot();
 
         if (VICTORY.text().equals(message.getCommand())) {
@@ -148,10 +173,14 @@ public class Main extends Application {
     }
 
     private void startGame() {
+        service.sendMap(playerBoard.getMapForServer());
         running = true;
         if (!service.isPlayerStarting()) {
             playerTurn = false;
             enemyMove();
+        }
+        else {
+            playerTurn = true;
         }
     }
 
@@ -167,7 +196,7 @@ public class Main extends Application {
             System.out.print("Avaiable rooms: | ");
             availableRooms.forEach(roomName -> System.out.print(roomName + " | "));
 
-            System.out.println("Insert room name: ");
+            System.out.print("Insert room name: ");
 
         } while (!service.sit(scanner.next()));
 
