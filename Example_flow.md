@@ -1,3 +1,4 @@
+```
 Received: hello hello
 COMMAND: LIST
 Received: Avaiable rooms:
@@ -35,3 +36,4 @@ Received: MISS C2
 Received: YOUR_TURN
 COMMAND: SHOT D2
 Received: HIT_AND_SINK
+```
