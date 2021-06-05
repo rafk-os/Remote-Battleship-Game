@@ -1,0 +1,5 @@
+.vscode/settings.json
+.vscode/launch.json
+BattleshipServer/__pycache__/rooms.cpython-37.pyc
+BattleshipServer/__pycache__/Protocol.cpython-37.pyc
+BattleshipServer/__pycache__/Player.cpython-37.pyc
