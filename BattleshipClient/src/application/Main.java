@@ -4,10 +4,6 @@ import gameelements.Board;
 import gameelements.EnemyBoard;
 import gameelements.Ship;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,15 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import service.GameCommandDto;
 import service.WebSocketService;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static java.lang.System.exit;
@@ -32,14 +25,14 @@ import static service.Commands.*;
 
 public class Main extends Application {
 
-    private final int port = 2900;
+    private static final int PORT = 2900;
     private final String ipAddress = "localhost";
     private boolean running = false;
     private boolean playerTurn = false;
     private Board playerBoard;
     private EnemyBoard enemyBoard;
     private Scanner scanner;
-    WebSocketService service;
+    private WebSocketService service;
     private final List<Integer> ships = Arrays.asList(2, 2, 3, 3, 4, 5);
     private int shipsToPlace = 6;
     private EnemyBoard.Cell cellToShot = null;
@@ -60,7 +53,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    private Parent createContent() throws Exception {
+    private Parent createContent() {
         BorderPane root = new BorderPane();
         root.setPrefSize(600, 800);
 
@@ -185,10 +178,11 @@ public class Main extends Application {
     }
 
     private void initializeConnectionAndJoinRoom() throws Exception {
-        service = new WebSocketService(ipAddress, port);
+        service = new WebSocketService(ipAddress, PORT);
         scanner = new Scanner(System.in);
 
         service.receive();
+        String response;
 
         do {
             List<String> availableRooms = service.list();
@@ -196,9 +190,9 @@ public class Main extends Application {
             System.out.print("Avaiable rooms: | ");
             availableRooms.forEach(roomName -> System.out.print(roomName + " | "));
 
-            System.out.print("Insert room name: ");
+            response = service.sit();
 
-        } while (!service.sit(scanner.next()));
+        } while (!JOINING_SUCCESSFUL.text().equals(response));
 
         service.waitForOtherPlayerAndStart();
     }

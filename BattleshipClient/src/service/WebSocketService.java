@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static java.lang.System.exit;
 import static service.Commands.*;
@@ -49,9 +50,29 @@ public class WebSocketService {
     /**
      * Returns true when sited successfully
      */
-    public boolean sit(String roomName) {
-        send(SIT.text() + " " + roomName);
-        return JOINING_SUCCESSFUL.text().equals(receive());
+    public String sit() {
+
+        boolean wasChecked = false;
+        String response;
+
+        do {
+            if (wasChecked) {
+                System.out.println("Wrong room number! Insert the correct one!");
+            }
+
+            wasChecked = true;
+
+            System.out.print("Insert room name: ");
+
+            Scanner scanner = new Scanner(System.in);
+            String room = scanner.next();
+
+            send(SIT.text() + " " + room);
+
+            response = receive();
+        } while (WRONG_ROOM.text().equals(response));
+
+        return response;
     }
 
     public void sendMap(List<String> map) {

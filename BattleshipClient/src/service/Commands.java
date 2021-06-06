@@ -14,7 +14,8 @@ public enum Commands {
     MISS("MISS"),
     HIT("HIT"),
     SHOT("SHOT"),
-    QUIT("QUIT");
+    QUIT("QUIT"),
+    WRONG_ROOM("WRONG_ROOM");
 
     private final String message;
 
