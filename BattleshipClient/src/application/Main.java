@@ -26,7 +26,7 @@ import static service.Commands.*;
 public class Main extends Application {
 
     private static final int PORT = 2900;
-    private static final String IP_ADDRESS = "::1";
+    private static final String IP_ADDRESS = "localhost";
     private boolean running = false;
     private boolean playerTurn = false;
     private Board playerBoard;

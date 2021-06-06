@@ -21,8 +21,7 @@ public class WebSocketService {
     private final int msInMinute = 3600000;
 
     public WebSocketService(String ipAddress, int port) throws Exception {
-        Inet6Address inet6Address = (Inet6Address) Inet6Address.getByName(ipAddress);
-        this.clientSocket = new Socket(inet6Address, port);
+        this.clientSocket = new Socket(ipAddress, port);
         clientSocket.setSoTimeout(msInMinute);
         this.input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         this.output = new PrintWriter(clientSocket.getOutputStream());
