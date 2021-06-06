@@ -30,6 +30,7 @@ public class WebSocketService {
         send(LIST.text());
 
         while (NO_FREE_ROOM.text().equals(receive())) {
+            System.out.println("No free room. Next request in 5 seconds.");
             Thread.sleep(5000);
             send(LIST.text());
         }
