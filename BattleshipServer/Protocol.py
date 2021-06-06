@@ -1,5 +1,6 @@
 import socket
 from _thread import *
+from threading import Lock
 import re
 from rooms import NoFreeRoom
 from rooms import RoomFull
@@ -110,24 +111,26 @@ class Server:
                     conn, addr = self.sock.accept()
             except socket.timeout:
                 continue
-            start_new_thread(initializeTunnel,(conn,addr,self.lobby,id))
+            lock= Lock()
+            start_new_thread(initializeTunnel,(conn,addr,self.lobby,id,lock,))
             id+=1
         self.sock.close()
 
 # tworzenie nowego wątku oraz wywołanie funkcji obsługującej klienta 
-def initializeTunnel(connection,addr,lobby,id):
+def initializeTunnel(connection,addr,lobby,id,lock):
     print("[RESPONSE] Player " + str(id) + " established a connection with  server.")
     connection.send("HELLO You have been connected to a server using BGP version 1.0\r\n".encode("utf-8"))
-    tunnel = BGM(connection,addr[0],addr[1], lobby, id)
+    tunnel = BGM(connection,addr[0],addr[1], lobby, id,lock)
     tunnel.run()
     connection.close()     
 class BGM():
-    def __init__(self,conn, host, port, lobby,id):
+    def __init__(self,conn, host, port, lobby,id,lock):
         self.conn=conn
         self.host=host
         self.port=port
         self.lobby = lobby
         self.id=id
+        self.lock=lock
 
     def run(self):
         testos=False
@@ -151,6 +154,7 @@ class BGM():
             #OBSŁUGA SIT razem z odebraniem map graczy 
 
             elif re.search("SIT Room[0-9]\r\n",data):
+                twoTime=False
                 data = data.split(" ")
                 room_id = data[1]
                 room_id=room_id.replace("\r","")
@@ -159,44 +163,71 @@ class BGM():
                     roomData = self.lobby.join(player,room_id)
                     self.conn.send("JOINING_SUCCESSFUL\r\n".encode("utf-8"))
                     print("[RESPONSE] Player " + str(player.id) + " has joined room " + str(roomData))
-                    serverResponse=self.lobby.initializeGame(roomData)
-                    if serverResponse == "WAITING_FOR_SECOND_PLAYER":
-                         player.hisTurn=True
-                         self.conn.send((serverResponse + "\r\n").encode("utf-8"))
-                         print("[RESPONSE] Player " + str(player.id) + " is awaiting for a game in room: " + str(roomData))
-                         while True:
-                             serverResponse=self.lobby.initializeGame(roomData)
-                             if serverResponse == "GAME_IS_STARTING":
-                                 self.conn.send((serverResponse + "\r\n").encode("utf-8"))
-                                 print("[RESPONSE] Player " + str(player.id) + " has started game in room: " + str(roomData))
-                                 player.setStatus()
-                                 WholeMap=[]
-                                 for i in range(10):
-                                    mapLine = self.conn.recv(1024).decode("utf-8")
-                                    mapLine=mapLine.replace("\r","")
-                                    mapLine=mapLine.replace("\n","")
-                                    print(mapLine)
-                                    WholeMap.append(mapLine)
-                                 player.GameShips= GetPlayerShips(WholeMap)
-                                 self.conn.send("MAP_SEND_SUCCESSFULLY\r\n".encode("utf-8"))
-                                 self.conn.send("YOUR_TURN\r\n".encode("utf-8"))
-                                 print("[RESPONSE] Player " + str(player.id) + " has first turn in room: " + str(roomData))
-                                 break
+                    playerCount=self.lobby.checkPlayerCount(roomData)
+
+                    #jeżeli gracz jest pierwszy w pokoju 
+                    if playerCount == 1:
+                        serverResponse="WAITING_FOR_SECOND_PLAYER\r\n"
+                        secondServerResponse="GAME_IS_STARTING\r\n"
+                        endingResponse="YOUR_TURN\r\n"
+                        twoTime=True
+                        player.hisTurn=True
+                        self.conn.send((serverResponse).encode("utf-8"))
+                        while True:
+                            if self.lobby.checkPlayerCount(roomData) == 2:
+                                break
+                      #jeżeli gracz jest drugi w pokoju   
                     else:
+                        serverResponse="GAME_IS_STARTING\r\n"
                         player.hisTurn=False
-                        self.conn.send((serverResponse + "\r\n").encode("utf-8"))
-                        print("[RESPONSE] Player " + str(player.id) + " has started game in room: " + str(roomData))
-                        player.setStatus()
-                        WholeMap=[]
-                        for i in range(10):
-                            mapLine = self.conn.recv(1024).decode("utf-8")
-                            mapLine=mapLine.replace("\r","")
-                            mapLine=mapLine.replace("\n","")
-                            WholeMap.append(mapLine)   
-                        player.GameShips=GetPlayerShips(WholeMap)
-                        self.conn.send("MAP_SEND_SUCCESSFULLY\r\n".encode("utf-8"))
-                        self.conn.send("YOUR_OPPONENT_TURN\r\n".encode("utf-8"))
-                        print("[RESPONSE] Player " + str(player.id) + " has second turn in room: " + str(roomData))
+                        endingResponse="YOUR_OPPONENT_TURN\r\n"
+                    
+                    #pobieranie mapy
+                    if not player.hisTurn:
+                        self.conn.send((serverResponse).encode("utf-8"))
+                    if twoTime:
+                        self.conn.send((secondServerResponse).encode("utf-8"))
+                    print("[RESPONSE] Player " + str(player.id) + " has started game in room: " + str(roomData))
+                    player.setStatus()
+                    WholeMap=[]
+                    firstLine = self.conn.recv(1024).decode("utf-8")
+                    if self.lobby.send: 
+                        counter=0
+                        WholeMap.append(firstLine)
+                        mapLine1 = self.conn.recv(1024).decode("utf-8")
+                        mapLine1=mapLine1.replace("\r","")
+                        mapLine1=mapLine1.replace("\n","")
+                        line=""
+                        for character in mapLine1:
+                            if counter == 10:
+                                WholeMap.append(line)
+                                line=""
+                                counter=0
+                            line+=character
+                            counter+=1
+
+                        if player.hisTurn==True:
+                            print (mapLine1)
+                        WholeMap.append(mapLine1) 
+
+                    else:
+                        WholeMap.append(firstLine)
+                        for i in range(9):
+                            mapLine2 = self.conn.recv(1024).decode("utf-8")
+                            mapLine2=mapLine2.replace("\r","")
+                            mapLine2=mapLine2.replace("\n","")
+                            if player.hisTurn==True:
+                                print (mapLine2)
+                            WholeMap.append(mapLine2) 
+
+
+                    player.GameShips=GetPlayerShips(WholeMap)
+                    self.conn.send("MAP_SEND_SUCCESSFULLY\r\n".encode("utf-8"))
+                    self.conn.send(endingResponse.encode("utf-8"))
+                    print("[RESPONSE] Player " + str(player.id) + " has second turn in room: " + str(roomData))
+                    if not player.hisTurn:
+                        self.lobby.send=True
+
 
         
                 except RoomFull:
@@ -208,8 +239,7 @@ class BGM():
 
             #obsługa quit
 
-            elif data == "QUIT\r\n":
-                
+            elif data == "QUIT\r\n":                
                 print("[RESPONSE] Player " + str(player.id) + " has closed  connection to the server." )
                 try:
                    player_id= self.lobby.leave(player.id)
@@ -225,6 +255,7 @@ class BGM():
 
 
             #obsługa wszystkiego co się dzieje podczas gry
+
             while  player.isInGame:    
                 #obsługa gracza strzelającego
                 if player.hisTurn:
