@@ -26,7 +26,7 @@ import static service.Commands.*;
 public class Main extends Application {
 
     private static final int PORT = 2900;
-    private final String ipAddress = "localhost";
+    private static final String IP_ADDRESS = "::1";
     private boolean running = false;
     private boolean playerTurn = false;
     private Board playerBoard;
@@ -178,7 +178,7 @@ public class Main extends Application {
     }
 
     private void initializeConnectionAndJoinRoom() throws Exception {
-        service = new WebSocketService(ipAddress, PORT);
+        service = new WebSocketService(IP_ADDRESS, PORT);
         scanner = new Scanner(System.in);
 
         service.receive();

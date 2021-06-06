@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.Inet6Address;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ public class WebSocketService {
     private final int msInMinute = 3600000;
 
     public WebSocketService(String ipAddress, int port) throws Exception {
-        this.clientSocket = new Socket(ipAddress, port);
+        Inet6Address inet6Address = (Inet6Address) Inet6Address.getByName(ipAddress);
+        this.clientSocket = new Socket(inet6Address, port);
         clientSocket.setSoTimeout(msInMinute);
         this.input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         this.output = new PrintWriter(clientSocket.getOutputStream());
