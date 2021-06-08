@@ -171,6 +171,7 @@ public class Main extends Application {
         if (!service.isPlayerStarting()) {
             playerTurn = false;
             Thread thread = new Thread(this::enemyMove);
+            thread.start();
         }
         else {
             playerTurn = true;
