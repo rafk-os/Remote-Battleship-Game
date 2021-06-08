@@ -36,6 +36,7 @@ public class Main extends Application {
     private final List<Integer> ships = Arrays.asList(2, 2, 3, 3, 4, 5);
     private int shipsToPlace = 6;
     private EnemyBoard.Cell cellToShot = null;
+    private boolean isPlayerStarting;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -98,6 +99,12 @@ public class Main extends Application {
 
         Thread thread = new Thread(() -> {
             while (true) {
+
+                if (!isPlayerStarting) {
+                    service.receive();
+                    isPlayerStarting = true;
+                }
+
                 try {
                     Thread.sleep(100);
 
@@ -194,7 +201,7 @@ public class Main extends Application {
 
         } while (!JOINING_SUCCESSFUL.text().equals(response));
 
-        service.waitForOtherPlayerAndStart();
+        this.isPlayerStarting = !service.waitForOtherPlayerAndStart();
     }
 
     private void end() {
