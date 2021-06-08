@@ -85,8 +85,10 @@ public class WebSocketService {
         return !receive().equals(YOUR_OPPONENT_TURN.text());
     }
 
-    public boolean waitForOtherPlayerAndStart() throws Exception {
-        return receive().equals(WAITING_FOR_SECOND_PLAYER.text());
+    public void waitForOtherPlayerAndStart() throws Exception {
+        if (receive().equals(WAITING_FOR_SECOND_PLAYER.text())) {
+            receive();
+        }
     }
 
     public GameCommandDto getTurnInfo() {
