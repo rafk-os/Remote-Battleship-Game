@@ -43,6 +43,7 @@ class Lobby:
         self.rooms = {'Room1' : Room(1), 'Room3' :Room(3),'Room5' : Room(5)}
         self.ALLplayers = []
         self.room_capacity = capacity
+        self.send=False
 
     def join(self, player, room_id):
 
@@ -57,11 +58,11 @@ class Lobby:
         else:
             raise RoomNotFound()
     
-    def initializeGame(self,room_id):
+    def checkPlayerCount(self,room_id):
         if self.rooms[room_id].isRoom_full():
-            return 'GAME_IS_STARTING'
+            return 2
         else:
-            return 'WAITING_FOR_SECOND_PLAYER'
+            return 1
 
 
     def list(self):
