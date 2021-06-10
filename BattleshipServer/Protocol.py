@@ -28,7 +28,6 @@ conversions={
 def GetPlayerShips(WholeMap):
     VisitedNodes=[]
     GameShips=[]
-    print(WholeMap)
     for y in range(10):
         for x in range(10):
             if WholeMap[y][x] =='x' and (y,x) not in VisitedNodes:
@@ -38,7 +37,6 @@ def GetPlayerShips(WholeMap):
                 left=right=up=down=False
                 VisitedNodes.append((y,x))
                 NewShip=[(x,y)]  
-                
                 while WholeMap[k][m] == 'x' and newShipCell:
                     newShipCell = False 
                     if k+1 <=9 and (k+1,m) not in VisitedNodes:
@@ -109,32 +107,31 @@ class Server:
         s.settimeout(5)
         s.listen(1)
         print ("[Initialization] Server has started....")
+        
         while True:
             try:
                     conn, addr = s.accept()
                     secureClientSocket = ssl.wrap_socket(conn,server_side=True,ssl_version=ssl.PROTOCOL_TLS,certfile="BattleshipServer/rootCA.crt",keyfile="BattleshipServer/rootCA.key")
             except socket.timeout:
                 continue
-            lock= Lock()
-            start_new_thread(initializeTunnel,(secureClientSocket,addr,self.lobby,id,lock,))
+            start_new_thread(initializeTunnel,(secureClientSocket,addr,self.lobby,id,))
             id+=1
-        self.sock.close()
+        s.close()
 
 # tworzenie nowego wątku oraz wywołanie funkcji obsługującej klienta 
-def initializeTunnel(connection,addr,lobby,id,lock):
+def initializeTunnel(connection,addr,lobby,id):
     print("[RESPONSE] Player " + str(id) + " established a connection with  server.")
     connection.send("HELLO You have been connected to a server using BGP version 1.0\r\n".encode("utf-8"))
-    tunnel = BGM(connection,addr[0],addr[1], lobby, id,lock)
+    tunnel = BGP(connection,addr[0],addr[1], lobby, id)
     tunnel.run()
     connection.close()     
-class BGM():
-    def __init__(self,conn, host, port, lobby,id,lock):
+class BGP():
+    def __init__(self,conn, host, port, lobby,id):
         self.conn=conn
         self.host=host
         self.port=port
         self.lobby = lobby
         self.id=id
-        self.lock=lock
 
     def run(self):
         player= Player(str(self.host),str(self.port),self.id)
