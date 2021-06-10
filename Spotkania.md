@@ -21,10 +21,12 @@ Następnie określiliśmy jakie zadanie wykonać w tym tygodniu. Oskar Wołosiuk
 ## Spotkanie 3  
 ###### 31.05.2021 18:00
 
+Na tym spotkaniu mieliśmy już gotowy program klienta  demo oraz działajacy serwer z obsługą graczy i przydzielaniem ich do pokojów gry. Następnym krokiem zostało zaimplementować pełny protokół który obsługiwałby graczy będących w grze. Do kolejnego spotkania ustaliliśmy że Rafał Kossowski do kończy demo serwera aby mogło już w pełni współpracować z klientem. Następnie Patryk Suruło będzie testował demo aplikacji serwera oraz klienta.
+
 
 ## Spotkanie 4 
 ###### 08.06.2021 19:00
-
+ W chwili tego spotkania posiadaliśmy już w pełni funkcjonujące demo serwera i klienta bez zaimplementowanych obsług IPv4 i IPv6, oraz szyfrowania połączenia. Do następnego tygodnia zaplanowaliśmy że wspólnie dodać te funkcjonalności aby przesłać pełny program do 15 czerwca.
 
 
 
