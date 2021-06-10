@@ -41,4 +41,10 @@ Received: MISS C2
 Received: YOUR_TURN
 COMMAND: SHOT D2
 Received: HIT_AND_SINK
+.
+.
+.
+COMMAND: SHOT A1
+Received: VICTORY
+COMMAND: QUIT
 ```
