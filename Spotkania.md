@@ -1,5 +1,5 @@
 # Spotkania zespołu
-Zaplanowane Spotkania będą się odbywać co tydzień w celu kontroli obecnej fazy projektu gry w statki.
+Zaplanowane spotkania będą się odbywać co tydzień w celu kontroli obecnej fazy projektu gry w statki.
 
 ## Spotkanie 1
 ###### 17.05.2021 16:00
@@ -27,6 +27,10 @@ Na tym spotkaniu mieliśmy już gotowy program klienta  demo oraz działajacy se
 ## Spotkanie 4 
 ###### 08.06.2021 19:00
  W chwili tego spotkania posiadaliśmy już w pełni funkcjonujące demo serwera i klienta bez zaimplementowanych obsług IPv4 i IPv6, oraz szyfrowania połączenia. Do następnego tygodnia zaplanowaliśmy że wspólnie dodać te funkcjonalności aby przesłać pełny program do 15 czerwca.
+ 
+## Spotkanie 5 
+###### 10.06.2021 17:00
+Na tym spotkaniu dopracowaliśmy cały program który stworzyliśmy i poszerzyliśmy go o szyfrowanie połączenia oraz obsługe IPv4 i IPv6. Został też naprawiony błąd z wysyłaniem danych wysyłanych przez klienta. Patryk Suruło podjął się zadania zmodyfikowania serwera aby był serwerem zdarzeniowym wykorzystującym asynchroniczne zarządzanie gniazdami z biblioteki asyncore.
 
 
 
