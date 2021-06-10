@@ -141,7 +141,7 @@ After receiving ``` YOUR TURN ``` message player which wants to play has to send
 
 ### QUIT
 
-Player that won or lost game could write ``` QUIT ``` command to end the game. If he did game wil automatically end after 10 sec countdown.
+Player that won or lost game could write ``` QUIT ``` command to end the game. If he did game will automatically end after 10 sec countdown.
 
 ### End of game
 
