@@ -78,7 +78,6 @@ GAME_IS_STARTING
 If the player has found a free lobby and received a ``` GAME_IS_STARTING ``` response, he has to send 10x10 map that contains ships ( ```x``` symbol) and free space ( ```o``` symbol) as 10 messeges while each message contains 10 chars ( ``` x ``` and ``` o ``` ). Send map must include 1 five-field ship, 1 four-field ship, 2 three-field ships and 2 twofield ships.  After sending 10th message server will send response as follows:
 
 ``` MAP_SEND_SUCCESSFULY ``` - when client didn't made any mistake
-``` BAD_REQUEST ``` - when client did any mistake like didn't arrange all ships, used bad syntax or arrange too many ships
 
 Example client message:
 
@@ -139,11 +138,10 @@ After receiving ``` YOUR TURN ``` message player which wants to play has to send
 
 ``` VICTORY ``` - player destroyed last ship and won the game
 
-``` BAD_SYNTAX ``` - player used unknown command
 
 ### QUIT
 
-Player that doesn't want to play could write ``` QUIT ``` command to end the game. He might use it also when he already won or lost the game.
+Player that won or lost game could write ``` QUIT ``` command to end the game. If he did game will automatically end after 10 sec countdown.
 
 ### End of game
 
