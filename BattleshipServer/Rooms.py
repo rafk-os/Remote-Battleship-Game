@@ -43,8 +43,6 @@ class Lobby:
         self.rooms = {'Room1' : Room(1), 'Room3' :Room(3),'Room5' : Room(5)}
         self.ALLplayers = []
         self.room_capacity = capacity
-        self.send=False
-
     def join(self, player, room_id):
 
         self.ALLplayers.append(player)

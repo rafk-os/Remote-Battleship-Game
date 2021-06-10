@@ -4,5 +4,5 @@ from Protocol import Server
 
 if __name__ == "__main__":
     GameLobby = Lobby()
-    GameServer = Server("127.0.0.1",2900,GameLobby)
+    GameServer = Server("",2900,GameLobby)
     GameServer.start()

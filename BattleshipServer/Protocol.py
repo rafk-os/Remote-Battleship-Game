@@ -1,4 +1,5 @@
 import socket
+import ssl
 from _thread import *
 from threading import Lock
 import re
@@ -7,8 +8,6 @@ from rooms import RoomFull
 from rooms import RoomNotFound
 from rooms import PlayerNotFound
 from Player import Player
-
-#W obecnej wersji program działa tylko gdy pierwszą mapę się wyśle od gracza który zaczyna grę (z niewadomych przyczyn xD)
 
 #Konwersje z tablic na to co przychodzi od klienta
 conversions={
@@ -29,6 +28,7 @@ conversions={
 def GetPlayerShips(WholeMap):
     VisitedNodes=[]
     GameShips=[]
+    print(WholeMap)
     for y in range(10):
         for x in range(10):
             if WholeMap[y][x] =='x' and (y,x) not in VisitedNodes:
@@ -100,19 +100,23 @@ class Server:
 
 #Inicjalizacja serwera
         print ("[Initialization] Server is starting....")
-        self.sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        self.sock.bind((self.host, self.port))
-        self.sock.setblocking(0)
-        self.sock.settimeout(5)
-        self.sock.listen(1)
+        addr = (self.host, self.port)
+        if socket.has_dualstack_ipv6():
+            s = socket.create_server(addr, family=socket.AF_INET6, dualstack_ipv6=True)
+        else:
+            s = socket.create_server(addr)
+        s.setblocking(0)
+        s.settimeout(5)
+        s.listen(1)
         print ("[Initialization] Server has started....")
         while True:
             try:
-                    conn, addr = self.sock.accept()
+                    conn, addr = s.accept()
+                    secureClientSocket = ssl.wrap_socket(conn,server_side=True,ssl_version=ssl.PROTOCOL_TLS,certfile="BattleshipServer/rootCA.crt",keyfile="BattleshipServer/rootCA.key")
             except socket.timeout:
                 continue
             lock= Lock()
-            start_new_thread(initializeTunnel,(conn,addr,self.lobby,id,lock,))
+            start_new_thread(initializeTunnel,(secureClientSocket,addr,self.lobby,id,lock,))
             id+=1
         self.sock.close()
 
@@ -133,11 +137,9 @@ class BGM():
         self.lock=lock
 
     def run(self):
-        testos=False
         player= Player(str(self.host),str(self.port),self.id)
         while True: 
             data = self.conn.recv(1024).decode("utf-8")
-            print(data)
             #OBSŁUGA LIST
             if data == "LIST\r\n":
                 try:
@@ -190,35 +192,11 @@ class BGM():
                     print("[RESPONSE] Player " + str(player.id) + " has started game in room: " + str(roomData))
                     player.setStatus()
                     WholeMap=[]
-                    firstLine = self.conn.recv(1024).decode("utf-8")
-                    if self.lobby.send: 
-                        counter=0
-                        WholeMap.append(firstLine)
-                        mapLine1 = self.conn.recv(1024).decode("utf-8")
-                        mapLine1=mapLine1.replace("\r","")
-                        mapLine1=mapLine1.replace("\n","")
-                        line=""
-                        for character in mapLine1:
-                            if counter == 10:
-                                WholeMap.append(line)
-                                line=""
-                                counter=0
-                            line+=character
-                            counter+=1
-
-                        if player.hisTurn==True:
-                            print (mapLine1)
-                        WholeMap.append(mapLine1) 
-
-                    else:
-                        WholeMap.append(firstLine)
-                        for i in range(9):
-                            mapLine2 = self.conn.recv(1024).decode("utf-8")
-                            mapLine2=mapLine2.replace("\r","")
-                            mapLine2=mapLine2.replace("\n","")
-                            if player.hisTurn==True:
-                                print (mapLine2)
-                            WholeMap.append(mapLine2) 
+                    for i in range(10):
+                         mapLine = self.conn.recv(1024).decode("utf-8")
+                         mapLine=mapLine.replace("\r","")
+                         mapLine=mapLine.replace("\n","")
+                         WholeMap.append(mapLine) 
 
 
                     player.GameShips=GetPlayerShips(WholeMap)
@@ -261,7 +239,6 @@ class BGM():
                 if player.hisTurn:
                     print("[RESPONSE] Player " + str(player.id) + " is in his turn." )
                     data = self.conn.recv(1024).decode("utf-8")
-                    print(data)
                     if re.search("SHOT [A-J][0-9]\r\n",data):
                         data=data.replace("\r","")
                         data=data.replace("\n","")
@@ -318,7 +295,6 @@ class BGM():
                     print("[RESPONSE] Player " + str(player.id) + " is waiting." )
                     while True:
                         if player.message != 'none':
-                            print(player.message)
                             if re.search("VICTORY [A-J][0-9]\r\n",player.message):
                                 self.conn.send(player.message.encode("utf-8"))
                                 print("[RESPONSE] Player " + str(player.id) + " has lost ." )
