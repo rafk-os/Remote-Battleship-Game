@@ -1,4 +1,4 @@
-from rooms import Lobby
+from Rooms import Lobby
 from Protocol import Server
 
 

@@ -1,12 +1,11 @@
 import socket
 import ssl
 from _thread import *
-from threading import Lock
 import re
-from rooms import NoFreeRoom
-from rooms import RoomFull
-from rooms import RoomNotFound
-from rooms import PlayerNotFound
+from Rooms import NoFreeRoom
+from Rooms import RoomFull
+from Rooms import RoomNotFound
+from Rooms import PlayerNotFound
 from Player import Player
 
 #Konwersje z tablic na to co przychodzi od klienta
