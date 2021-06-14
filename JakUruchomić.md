@@ -13,7 +13,7 @@ Istnieje wiele sposobów uruchomienia programu, lecz dla przykładu zostanie opi
 4. Dodanie opcji wirtualnej maszyny. W celu pokierowania środowiska do odpowiednich modułów JavyFx należy dodać odpowiednie konfiguracje uruchomienia, w tym celu przejdź do ```Run -> Edit Configurations...``` i w opcjach wirtualnej maszyny dodaj:
 - ```--module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml``` dla Mac/Linux
 - ```--module-path "\path\to\javafx-sdk\lib" --add-modules javafx.controls,javafx.fxml``` dla Windows
-- 
+
 Oczywiście w miejscu ```path/to/javafx-sdk``` należy podać własną ścieżke. 
 
 5. Uruchom projekt przyciskiem RUN.
