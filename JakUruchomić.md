@@ -17,4 +17,6 @@ Oczywiście w miejscu ```path/to/javafx-sdk``` należy podać własną ścieżke
 
 5. Uruchom projekt przyciskiem RUN.
 
+Więcej informacji odnośnie uruchomienia na wcześniej wymienionej stronie JavyFX: https://openjfx.io/index.html
+
 # SERWER:
