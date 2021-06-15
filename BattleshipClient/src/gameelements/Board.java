@@ -16,6 +16,7 @@ import javafx.scene.shape.Rectangle;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static javafx.scene.paint.Color.GRAY;
 
 public class Board extends Parent {
     private VBox rows = new VBox();
@@ -44,13 +45,13 @@ public class Board extends Parent {
                 for (int i = y; i < y + length; i++) {
                     Cell cell = getCell(x, i);
                     cell.ship = ship;
-                    cell.setFill(Color.LIGHTGRAY);
+                    cell.setFill(GRAY);
                 }
             } else {
                 for (int i = x; i < x + length; i++) {
                     Cell cell = getCell(i, y);
                     cell.ship = ship;
-                    cell.setFill(Color.LIGHTGRAY);
+                    cell.setFill(GRAY);
                 }
             }
             return true;
