@@ -12,6 +12,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import service.AudioPaths;
 import service.GameCommandDto;
 import service.WebSocketService;
 
@@ -21,6 +22,7 @@ import java.util.Scanner;
 
 import static java.lang.System.exit;
 import static java.util.Objects.*;
+import static service.AudioUtils.playSound;
 import static service.Commands.*;
 
 public class Main extends Application {
@@ -38,7 +40,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         initializeConnectionAndJoinRoom();
 
         Scene scene = new Scene(createContent());
@@ -83,7 +84,7 @@ public class Main extends Application {
         Button button = new Button("Start game");
 
         button.setOnAction(actionEvent -> {
-            if (shipsToPlace==0) {
+            if (shipsToPlace == 0) {
                 button.setDisable(true);
                 startGame();
             }
@@ -123,6 +124,7 @@ public class Main extends Application {
 
         if (VICTORY.text().equals(response)) {
             cellToShot.hitAndSink();
+            playSound(AudioPaths.WIN.toString());
             System.out.println("VICTORY! QUITING IN 10 SEC.");
             try {
                 Thread.sleep(10000);
@@ -130,17 +132,16 @@ public class Main extends Application {
                 e.printStackTrace();
             }
             end();
-        }
-        else if (HIT_AND_SINK.text().equals(response)) {
+        } else if (HIT_AND_SINK.text().equals(response)) {
             cellToShot.hitAndSink();
-        }
-        else if (HIT.text().equals(response)) {
+            playSound(AudioPaths.DESTROYED.toString());
+        } else if (HIT.text().equals(response)) {
             cellToShot.hit();
-        }
-        else if (MISS.text().equals(response)) {
+            playSound(AudioPaths.SHOT.text());
+        } else if (MISS.text().equals(response)) {
             cellToShot.miss();
-        }
-        else {
+            playSound(AudioPaths.WATER_SPLASH.text());
+        } else {
             System.out.println("BAD SYNTAX? XD");
         }
     }
@@ -152,6 +153,7 @@ public class Main extends Application {
         if (VICTORY.text().equals(message.getCommand())) {
 
             System.out.println("YOUR OPPONENT WON! QUITING IN 10 SEC.");
+            playSound(AudioPaths.LOOSE.toString());
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
@@ -172,8 +174,7 @@ public class Main extends Application {
             playerTurn = false;
             Thread thread = new Thread(this::enemyMove);
             thread.start();
-        }
-        else {
+        } else {
             playerTurn = true;
         }
     }

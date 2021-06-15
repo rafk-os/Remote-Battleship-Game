@@ -21,8 +21,8 @@ public class WebSocketService {
     private final int msInMinute = 3600000;
     private static final String IP_V4_ADDRESS = "localhost";
     private static final String IP_V6_ADDRESS = "::1";
-
     public WebSocketService(int port) throws Exception {
+
         String ipAddress = setIpVersion() == 4 ? IP_V4_ADDRESS : IP_V6_ADDRESS;
         initializeSSLSocket(ipAddress, port);
         clientSocket.setSoTimeout(msInMinute);
