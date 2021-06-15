@@ -32,7 +32,9 @@ Na tym spotkaniu mieliśmy już gotowy program klienta  demo oraz działajacy se
 ###### 10.06.2021 17:00
 Na tym spotkaniu dopracowaliśmy cały program który stworzyliśmy i poszerzyliśmy go o szyfrowanie połączenia oraz obsługe IPv4 i IPv6. Został też naprawiony błąd z wysyłaniem danych wysyłanych przez klienta. Patryk Suruło podjął się zadania zmodyfikowania serwera aby był serwerem zdarzeniowym wykorzystującym asynchroniczne zarządzanie gniazdami z biblioteki asyncore.
 
-
+## Spotkanie 6 
+###### 15.06.2021 19:00
+Zmiana działania serwera na tego wykorzustującego bilbiotekę asyncore nie była udana więc został zostawiony serwer zdarzeniowy działajacy na podstawie nowych tworzonych wątków. Całość została sprawdzona, zostały dokonane małe zmiany estetyczne oraz projekt został wysłany do prowadzącego laboratorium.
 
 
 
