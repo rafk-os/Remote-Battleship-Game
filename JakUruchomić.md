@@ -23,5 +23,7 @@ Więcej informacji odnośnie uruchomienia na wcześniej wymienionej stronie Javy
 # SERWER:
 
 Uruchomienie serwera nie jest problemem i składa głównie się z posiadania samego interpretera pythona w wersji``` 3.8+```. Posiadając go można stworzyć środowisko wirtualne(ewentualnie bez niego) i wykonać polecenie w terminalu ``` python server.py ```lub ```python3 server.py ```z folderu ```BatttleshipServer```. Innym sposobem może też być uruchomienie go z programu Visual Studio Code (w którym był pisany). Jeżeli występuje błąd uruchomienia z powodu nie rozpoznania dodatkowych klas dodanych do server.py to trzeba w programie do pliku ```settings.json``` dodać linie, która sprawi że interpreter pythona będzie brał pod uwagę folder BattleshipServer : 
+
 ``` "python.analysis.extraPaths": ["BattleshipServer"]```
+
 Powinno znajdować się w lini  pod lokalizacją aktywnego interpretera pythona. Trzeba równiez pamietać o posiadaniu dodatku do Visual Studio Code odpowiadającego za pythona.
