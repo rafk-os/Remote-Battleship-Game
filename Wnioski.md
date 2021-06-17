@@ -1,9 +1,12 @@
 # Wnioski
 Poniżej będą przedstawione wnioski każdego z członków przy realizowaniu projektu gry w statki.
 ## Rafał Kossowski
-
-
-
+- Praca nad połączeniem dwóch progamów napisanych w innych językach programowania jest większym wyzwaniem niż połączenie dwóch programów działajacych w tym samym języku.
+- Wyniosłem o wiele więcej doświadczenia z pracowania z pythonem nie tylko pod względem tworzenia programu serwera opierajacego się na gnieździe tcp ale też składni, skracania kodu, szeroko pojętej optymalizacji kodu w języku python.
+- Praca z nową biblioteką asyncore która służy do asynchronicznego zarządzania gniazdami sieciowymi była bardzo rozwijająca.
+- Tworzenie porządnego programu który będzie obsługiwał wiele sytuacji oraz błędów jest bardzo ciekawe z mojej strony.
+- Współpraca z drugą osobą nad tworzeniem tej samej części projektu jest bardzo interesująca i uczy o tym jak ważne jest wspólne zrozumienie oraz zgodność aby program działał całkowicie dobrze jak było to zaplanowane a był pisany przez różnych programistów.
+- Omawiania na wspólnych spotkania wielu interesujących tematów odnośnie programu oraz rozwiązywanie problemów było bardzo produktywnym i dobrym doświadczeniem.
 
 
 ## Oskar Wołosiuk
