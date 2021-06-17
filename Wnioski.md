@@ -3,7 +3,7 @@ Poniżej będą przedstawione wnioski ogólne zespołu a jeszcze niżej indywidu
 
 - Nasz projekt napewno wyróżnia to że jest napisany z pomocą JavaX jako bilbioteką do zobrazowania całej gry. Jest to biblioteka nie używana powszechnie do takich rozwiązań. Innym charakterystycznym elementem jest również to, że łączymy programy napisane w dwóch różnych językach programowania  oraz są one napisane głównie z pomocą ich dokumentacji.
 
-- Nasze programy może uruchomić większość dzisiejszych komputerów, które mają dostępny dowolny port na stworzenie gniazda TCP oraz stworzyć kilka wątków. Co do wymagań programowych to potrzeba posiadać dobrze skonfigurowaną bibliotekę JavaX oraz interpretera pythona w wersji 3.8+. Jeżeli byłby jakikolwiek problem z połączeniem się z wykorzystaniem TLS to może być to spowodowane przez firewall lub antyvirus. (zauważyliśmy taki problem u jednego z nas)
+- Nasze programy może uruchomić większość dzisiejszych komputerów, które mają dostępny dowolny port na stworzenie gniazda TCP oraz stworzyć kilka wątków. Co do wymagań programowych to potrzeba posiadać dobrze skonfigurowaną bibliotekę JavaX oraz interpretera pythona w wersji 3.8+. U nas wszystko było testowane głownie w IDE Visual Studio Code. Jeżeli byłby jakikolwiek problem z połączeniem się z wykorzystaniem TLS to może być to spowodowane przez firewall lub antyvirus. (zauważyliśmy taki problem u jednego z nas)
 
 - Biblioteki jakie wykorzystywaliśmy to z pythona: socket do stworzenia dual-stack gniazda oraz operacji na nim, asyncore na którym próbowaliśmy stworzyć serwer zdarzeniowy ale jest to jeszcze w fazie testowania, _thread do stworzenia wielu wątków na serwerze oraz różnych operacji na tym, ssl aby stworzyć szyfrowane połączenie oraz zarządzać certyfikatami bezpieczeństwa, re aby rozpoznawać czy polecenia wysyłane przez klienta są poprawne. Z Javy zostały wykorzystywane różne biblioteki wchodzące w skład JavaX aby wszystko jak najlepiej ukazać oraz biblioteki do zarządzania ceryfikatami bezpieczeństwa i tworzenia połączenia tcp z serwerem.
 
@@ -18,7 +18,7 @@ Poniżej będą przedstawione wnioski ogólne zespołu a jeszcze niżej indywidu
 - Tworzenie porządnego programu, który będzie obsługiwał wiele zdarzeń oraz wystąpień błędów jest bardzo ciekawe z mojej strony.
 - Współpraca z drugą osobą nad tworzeniem tej samej części projektu jest bardzo interesująca i uczy o tym jak ważne jest wspólne zrozumienie oraz zgodność aby program działał całkowicie dobrze jak było to zaplanowane a był pisany przez różne osoby.
 - Omawianie na wspólnych spotkania wielu interesujących tematów odnośnie programu oraz rozwiązywanie problemów na żywo było bardzo produktywnym i rozwijającym doświadczeniem.
-- Szukanie w internecie potencjalnych pomocy do stworzenia takiego projektu było bardzo ciekawą czynnością która pozwoliła mi poszzerzyć moją wiedzę na wiele tematów zwiazanych z programowaniem oraz aplikacjami sieciowymi.
+- Szukanie w internecie potencjalnych pomocy do stworzenia takiego projektu było bardzo ciekawą czynnością która pozwoliła mi poszerzyć moją wiedzę na wiele tematów zwiazanych z programowaniem oraz aplikacjami sieciowymi.
 
 ## Oskar Wołosiuk
 
