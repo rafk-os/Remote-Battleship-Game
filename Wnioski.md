@@ -17,6 +17,7 @@ Poniżej będą przedstawione wnioski każdego z członków przy realizowaniu pr
 - ```JavaFX``` jest bardzo fajną biblioteką, lecz ciężko radzi sobie z "pisaniem gier".
 - W zespole można o wiele więcej - podczas wspólnych spotkań byliśmy w stanie dokonać o wiele więcej w stosunkowo krótkim czasie.
 - W zespole ważna jest wymiana informacji - podczas wspólnej dyskusji byliśmy w stanie doradzać sobie nawzajem i ewentualnie skrócić czas innych członków zespołu.
+- Biblioteki w różnych językach mogą różnie realizować z pozoru te same rzeczy
 ## Patryk Suruło
 - Praca zespołowa wiele uczy, ponieważ można wspólnie rozwiązać dany problem.
 - Realizowanie takich typów projektu stawia przed nowymi problemami. 
