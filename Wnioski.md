@@ -1,5 +1,5 @@
 # Wnioski
-Poniżej będą przedstawione wnioski każdego z członków przy realizowaniu projektu gry w statki.
+Poniżej będą przedstawione wnioski ogólne zespołu a jeszcze niżej indywidualne wnioski każdego z członków zespołu przy realizowaniu projektu gry w statki.
 ## Rafał Kossowski
 - Praca nad połączeniem dwóch progamów napisanych w innych językach programowania jest większym wyzwaniem niż połączenie dwóch programów działajacych w tym samym języku.
 - Wyniosłem o wiele więcej doświadczenia z pracowania z pythonem nie tylko pod względem tworzenia programu serwera opierajacego się na gnieździe tcp ale też składni, skracania kodu, szeroko pojętej optymalizacji kodu w języku python.
