@@ -128,7 +128,7 @@ VICTORY F6
 
 ### SHOT XY
 
-After receiving ``` YOUR TURN ``` message player which wants to play has to send ``` SHOT XY ``` message where X is a letter from range A-J and means position on x axis and Y is a number from range 0-9 that means position on y axis. Pair of thoose numbers are coordinates which means position on map. After using this command player can get response messeges as follows: /
+After receiving ``` YOUR TURN ``` message player which wants to play has to send ``` SHOT XY ``` message where X is a letter from range A-J and means position on x axis and Y is a number from range 0-9 that means position on y axis. Pair of thoose numbers are coordinates which means position on map. After using this command player can get response messeges as follows: 
 
 ``` HIT ``` - ship was hit
 
@@ -141,8 +141,8 @@ After receiving ``` YOUR TURN ``` message player which wants to play has to send
 
 ### QUIT
 
-Player that won or lost game could write ``` QUIT ``` command to end the game. If he did game will automatically end after 10 sec countdown.
+Player that won or lost game could write ``` QUIT ``` command to end the game. If he did game will close and u will be disconected to the server. In game this happens after 10 sec delay if one of the players won the game.
 
 ### End of game
 
-When player will see ``` VICTORY ``` message after using command ``` SHOT ``` or ``` LOSE ``` message, instead of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to leave game.
+When player will see ``` VICTORY ``` or or ``` LOSE ``` message  after using command ``` SHOT ``` , instead of ``` YOUR_TURN ``` the game is finished and both players have to use command ``` QUIT ``` to leave game.
