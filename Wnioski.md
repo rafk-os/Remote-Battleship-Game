@@ -18,3 +18,9 @@ Poniżej będą przedstawione wnioski każdego z członków przy realizowaniu pr
 - W zespole można o wiele więcej - podczas wspólnych spotkań byliśmy w stanie dokonać o wiele więcej w stosunkowo krótkim czasie.
 - W zespole ważna jest wymiana informacji - podczas wspólnej dyskusji byliśmy w stanie doradzać sobie nawzajem i ewentualnie skrócić czas innych członków zespołu.
 ## Patryk Suruło
+- Praca zespołowa wiele uczy, ponieważ można wspólnie rozwiązać dany problem.
+- Realizowanie takich typów projektu stawia przed nowymi problemami. 
+- Głównym problemem projektu było połączenie serwera napisanego w pythonie i klienta napisanego w Javie - trzeba było zadbać o poprawną komunikację.
+- Trudność szukania błędów w wyniku tego, że projekt był realizowany w dwóch językach.
+- Realizacja takiego projektu pozwoliła na bardziej praktyczną wiedzę dotyczącą protokołów.
+- Praktyczne zastosowanie gita w zespole.
